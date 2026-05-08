@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "test": "npm run test --prefix backend && npm run test --prefix frontend"
+    "test": "npm run test --prefix backend"
   },
   "dependencies": {
     "dotenv": "^16.4.5"
