@@ -26,7 +26,6 @@ jest.mock('@prisma/client', () => {
     };
 });
 
-import { PrismaClient } from '@prisma/client';
 import { addCandidate } from '../application/services/candidateService';
 
 describe('Recepción de datos del formulario (validación antes de persistir)', () => {
@@ -60,8 +59,11 @@ describe('Guardado en base de datos (servicio de alta de candidato)', () => {
     };
 
     beforeEach(() => {
-        prismaMock = new PrismaClient() as unknown as typeof prismaMock;
         jest.clearAllMocks();
+        const { PrismaClient } = jest.requireMock<{ PrismaClient: new () => typeof prismaMock }>(
+            '@prisma/client',
+        );
+        prismaMock = new PrismaClient();
         prismaMock.candidate.create.mockResolvedValue({
             id: 42,
             firstName: 'Laura',
